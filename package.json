@@ -1,11 +1,14 @@
 {
   "name": "typescript-feature-viewer",
   "version": "0.0.0",
+  "homepage": "https://biocomputingup.github.io/FeatureViewerTypeScript-documentation",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "deploy-prod-quick": "(colC='\\033[0;36m';colN='\\033[0m'; echo ${colC}Running npm build ...${colN} && npm run build && echo ${colC}Rsyncing dist ...${colN} && rsync -avh --delete dist/typescript-feature-viewer/* biocomp@idra:/var/www/feature-viewer/ && echo ${colC}Done with deploy-prod-quick!${colC})",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -40,6 +43,7 @@
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "gh-pages": "^3.2.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.1.1",
