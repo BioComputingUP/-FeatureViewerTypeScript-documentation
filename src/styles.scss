@@ -1,0 +1,109 @@
+/* You can add global styles to this file, and also import other style files */
+
+.myButton {
+  -moz-box-shadow:inset 0px 1px 0px 0px #a6827e;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #a6827e;
+  box-shadow:inset 0px 1px 0px 0px #a6827e;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7d5d3b), color-stop(1, #634b30));
+  background:-moz-linear-gradient(top, #7d5d3b 5%, #634b30 100%);
+  background:-webkit-linear-gradient(top, #7d5d3b 5%, #634b30 100%);
+  background:-o-linear-gradient(top, #7d5d3b 5%, #634b30 100%);
+  background:-ms-linear-gradient(top, #7d5d3b 5%, #634b30 100%);
+  background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7d5d3b', endColorstr='#634b30',GradientType=0);
+  background-color:#7d5d3b;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+  border:1px solid #54381e;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:13px;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #4d3534;
+  width: 500px;
+  height: 100px;
+}
+.myButton:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #634b30), color-stop(1, #7d5d3b));
+  background:-moz-linear-gradient(top, #634b30 5%, #7d5d3b 100%);
+  background:-webkit-linear-gradient(top, #634b30 5%, #7d5d3b 100%);
+  background:-o-linear-gradient(top, #634b30 5%, #7d5d3b 100%);
+  background:-ms-linear-gradient(top, #634b30 5%, #7d5d3b 100%);
+  background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#634b30', endColorstr='#7d5d3b',GradientType=0);
+  background-color:#634b30;
+}
+.myButton:active {
+  position:relative;
+  top:1px;
+}
+
+
+/* prettify */
+/* desert scheme ported from vim to google prettify */
+pre.prettyprint { display: block; background-color: #333 }
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #c3c4db} /* string  - pink */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #33c7ca } /* type    - lightgreen */
+pre .lit { color: #84716a } /* literal - darkred */
+pre .pun { color: #fff }    /* punctuation */
+pre .pln { color: #fff }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 { }
+
+@media print {
+  pre.prettyprint { background-color: none }
+  pre .str, code .str { color: #060 }
+  pre .kwd, code .kwd { color: #006; font-weight: bold }
+  pre .com, code .com { color: #600; font-style: italic }
+  pre .typ, code .typ { color: #404; font-weight: bold }
+  pre .lit, code .lit { color: #044 }
+  pre .pun, code .pun { color: #440 }
+  pre .pln, code .pln { color: #000 }
+  pre .tag, code .tag { color: #006; font-weight: bold }
+  pre .atn, code .atn { color: #404 }
+  pre .atv, code .atv { color: #060 }
+}
+
+/* Box styles */
+.codeBox {
+  overflow: scroll !important;
+  height: 100% !important;
+  max-height: 500px !important;
+}
+
+.button {
+  height: 3px;
+}
+
+.startendtable {
+  border: 1px solid white;
+  width: 100%;
+  background-color: rgba(245,163,23,0.5);
+  font-size: 10pt;
+  padding: 6px;
+}
+
+//#header-shape-gradient {
+//  --color-stop: #f12c06;
+//  --color-bot: #faed34;
+//}
+
+.missing {
+  //fill: url(#pattern-missing) !important;
+   fill: #1c87c9 !important;
+}

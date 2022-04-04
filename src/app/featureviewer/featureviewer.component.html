@@ -1,0 +1,304 @@
+
+
+<accordion>
+  <!-- Initialization -->
+  <div class="well well-large mb-5">
+    <accordion-group [isOpen]="true" heading="Initialization">
+
+      <accordion-group [isOpen]="false" heading="HTML initialization">
+        <img style="max-height: 3rem" src="../../assets/html-logo.png"> <h3 style="display: inline"> HTML</h3>
+        <pre class="prettyprint mt-2"><code class="language-html">{{this.htmlString}}</code></pre>
+      </accordion-group>
+
+      <accordion-group [isOpen]="false" heading="Angular initialization">
+        <img style="max-height: 3rem" src="../../assets/angular-logo.png"> <h3 style="display: inline"> Angular</h3>
+        <p>If you are using Angular, <u>please note</u> that all stylesheets that need to be used inside the Feature
+          Viewer must be imported in the angular.json file of your project.</p>
+        <tabset>
+          <tab heading="feature-viewer-component.ts">
+            <pre class="prettyprint"><code class="language-java">
+            {{importString}}
+            </code></pre>
+          </tab>
+          <tab heading="angular.json">
+            <pre class="prettyprint"><code class="language-json">
+              ...
+              "styles": [
+                ...,
+                "./node_modules/feature-viewer-typescript/assets/fv.scss"
+              ]
+              ...
+            </code></pre>
+          </tab>
+        </tabset>
+      </accordion-group>
+
+      <accordion-group [isOpen]="false" heading="React initialization">
+        <img style="max-height: 3rem" src="../../assets/react-logo.png"> <h3 style="display: inline"> React</h3>
+        <p>A working version of the Feature Viewer integrated in React is available at
+          <a href="https://gitlab.com/lispal/gitlab-pages-react-example">
+            gitlab.com/lispal/gitlab-pages-react-example</a>.</p>
+        <tabset>
+          <tab heading="FeatureViewerComponent.js">
+            <pre class="prettyprint"><code class="language-java">
+            {{importReactString}}
+            </code></pre>
+          </tab>
+        </tabset>
+      </accordion-group>
+
+      <br>
+      <p><b>Feature viewer rendering options</b>:</p>
+      <ul>
+        <li><strong>showAxis</strong> <em> (boolean)</em>: Display or not the axis text labels - Default: true </li>
+        <li><strong>showSequence</strong> <em> (boolean)</em>: Display or not the sequence - Default: true </li>
+        <li><strong>toolbar</strong> <em> (boolean)</em>: Add a toolbar allowing users to download SVG and show help - Default: true </li>
+        <li><strong>toolbarPosition</strong> <em> (string)</em>: Position of toolbar in justify-content property, ex. <span style="font-family:monospace;background-color:#eee;">toolbarPosition: space-between</span></li>
+        <li><strong>brushActive</strong> <em> (boolean)</em>: Allows the zoom - Default: true </li>
+        <li><strong>zoomMax</strong> <em> (integer)</em>: Choose the max zoom allowed (number of residues)  - Default: 10, cannot be less than 10 </li>
+        <li><strong>showSubFeatures</strong> <em> (integer)</em>: Allows subfeatures visualization - Default: false </li>
+        <li><strong>flagColor</strong> <em> (string)</em>: Color of flags (titles on the left), hex string ex. <span style="font-family:monospace;background-color:#eee;">flagColor: '#DFD5F5'</span> </li>
+        <li><strong>flagTrack</strong> <em> (integer or string)</em>: Dimensions (in px) of the left-side area (flags) </li>
+        <li><strong>flagTrackMobile</strong> <em> (integer or string)</em>: Dimensions (in px) of the left-side area (flags) when in mobile mode </li>
+        <li><strong>breakpoint</strong> <em> (integer, string or boolean)</em>: Abilitates or sets fixed threshold to trigger mobile mode </li>
+        <li><strong>sideBar</strong> <em> (integer, boolean or string)</em>: Shows or sets fixed size (in px) of sidebar (on the right) </li>
+        <li><strong>offset</strong> <em> (object)</em>: Specify an offset, zoom (offset.start should always be > 0)
+        <li><strong>backgroundcolor</strong> <em> (string)</em>: Specify background color, ex. <span style="font-family:monospace;background-color:#eee;">transparent</span>
+        </li>
+      </ul>
+    </accordion-group>
+    <div class="card">
+      <div class="card-body">
+        <div id="fvDivInit"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div>
+          <tabset>
+            <tab heading="feature-viewer-component.ts">
+            <pre class="prettyprint"><code class="language-java">
+  const initViewer = {{this.FVInit.toString()
+              .replace("feature_viewer_typescript_lib__WEBPACK_IMPORTED_MODULE_2__[\"FeatureViewer\"]",
+                "FeatureViewer")}}
+  initViewer("fvDivInit")
+            </code></pre>
+            </tab>
+            <tab heading="feature-viewer-component.html">
+              <pre class="prettyprint lang-html">
+
+  {{this.FVInitString}}
+              </pre>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="well well-large mb-5">
+    <accordion-group [isOpen]="true" heading="Add features">
+      <div class="row">
+        <div class="col-8">
+          <p>You can add features using the addFeatures function.<br>
+            Features rendering options:</p>
+          <ul>
+            <li><strong>id</strong> <em>(string)</em> A unique identifier to trace events like region clicking or the interaction with the sidebar</li>
+            <li><strong>type</strong> <em>("rect"|"path"|"curve"|"unique"|"circle"|"lollipop"|"arrow")</em>: The type of feature, for a specific rendering
+            </li>
+            <li><strong>variant</strong> <em> (string)</em>: Discretionary variant to type, only available: "overlap" as variant of type "rect".
+              This option will superimpose overlapping rectangle features instead of creating multiple lines for them.
+            </li>
+            <li><strong>data</strong> <em> (array of objects)</em>: An array of objects, each containing
+              <ul>
+                <li><strong>x </strong> <em style="font-weight:500">(int)</em>: first position</li>
+                <li><strong>y </strong> <em style="font-weight:500">(int)</em>: last position OR value (see "Feature types" box)</li>
+                <li><strong>className </strong> <em style="font-weight:500">(string)</em>: html class for extra styling <em style="font-weight:600">(Optional)</em></li>
+                <li><strong>color </strong> <em style="font-weight:500">(string)</em>: a custom color <em style="font-weight:600">(Optional)</em></li>
+                <li><strong>stroke </strong> <em style="font-weight:500">(string)</em>: a custom stroke color <em style="font-weight:600">(Optional)</em></li>
+                <li><strong>opacity </strong> <em style="font-weight:500">(string)</em>: custom opacity, 0 to 1 <em style="font-weight:600">(Optional)</em></li>
+                <li><strong>tooltip </strong> <em style="font-weight:500">(string)</em>: custom message for tooltip <em style="font-weight:600">(Optional)</em></li>
+                <li><strong>direction </strong> <em style="font-weight:500">("left"|"right")</em>: direction of region in type 'arrow' <em style="font-weight:600">(Optional)</em></li>
+              </ul>
+            </li>
+            <li><strong>sidebar</strong> <em> (array of objects)</em>: An array of objects, each containing
+              <ul>
+                <li><strong>id </strong> <em style="font-weight:500">(string)</em>: The button id, used to identify click event</li>
+                <li><strong>type </strong> <em style="font-weight:500">(string)</em>: The button type ("percentage", "button", "icon" or None), see the "Subfeatures" example</li>
+                <li><strong>tooltip </strong> <em style="font-weight:500">(string)</em>: Message for tooltip</li>
+                <li><strong>label </strong> <em style="font-weight:500">(string)</em>: Label for buttons of type "button", "percentage" or "icon"</li>
+                <li><strong>content </strong> <em style="font-weight:500">(html string)</em>: Style your button! Accepts material icons</li>
+              </ul>
+            </li>
+            <li><strong>label</strong> <em> (string)</em>: The name of this feature, which will be display as a label on the Y-axis (flag)
+            </li>
+            <li><strong>className</strong> <em> (string)</em>: A class name, for further personal computing <em style="font-weight:600">(Optional)</em>
+            </li>
+            <li><strong>height</strong> <em> (int)</em>: Height of the <em style="font-weight:600">curve</em> feature (default: 3, which means three times the height of a rectangle feature) <em style="font-weight:600">(Optional)</em></li>
+            <li><strong>yLim</strong> <em> (int)</em>: Max value of the <em style="font-weight:600">curve</em> values <em style="font-weight:600">(Optional)</em></li>
+            <li><strong>color</strong> <em> (string)</em>: The color of the features <em style="font-weight:600">(Optional)</em></li>
+            <li><strong>stroke</strong> <em> (string)</em>: The stroke color of the features <em style="font-weight:600">(Optional)</em></li>
+            <li><strong>opacity</strong> <em> (string)</em>: custom opacity, 0 to 1 <em style="font-weight:600">(Optional)</em></li>
+            <li><strong>tooltip</strong> <em> (string)</em>: Message for flag tooltip <em style="font-weight:600">(Optional)</em></li>
+          </ul>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-header"> <b>Feature types</b> </div>
+            <div class="card-body">
+              <div class="media mb-1">
+                <img class="mr-2" src="assets/feature_types/rect.png" style="width: 15%">
+                <div class="media-body">
+                  <h6 class="mt-1">Rectangles, <i>"rect"</i></h6>
+                  <small class="text-muted"><b>x</b> is the start position, <b>y</b> is the end position. Rectangles can be overlapped, in this case a new rectangles line is created.</small>
+                </div>
+              </div>
+              <div class="media mb-1">
+                <img class="mr-2" src="assets/feature_types/path.png" style="width: 15%">
+                <div class="media-body">
+                  <h6 class="mt-1">Paths, <i>"path"</i></h6>
+                  <small class="text-muted"><b>x</b> is the start position, <b>y</b> is the end position. Paths can be overlapped, in this case the second to be defined is placed over the first.</small>
+                </div>
+              </div>
+              <div class="media mb-1">
+                <img class="mr-2" src="assets/feature_types/curve.png" style="width: 15%">
+                <div class="media-body">
+                  <h6 class="mt-1">Curves, <i>"curve"</i></h6>
+                  <small class="text-muted"><b>x</b> is the position, <b>y</b> is the value. Maximum value for the feature can be defined through the <b>yLim</b> option.</small>
+                </div>
+              </div>
+              <div class="media mb-1">
+                <img class="mr-2" src="assets/feature_types/unique.png" style="width: 15%">
+                <div class="media-body">
+                  <h6 class="mt-1">Single position rectangles, <i>"unique"</i></h6>
+                  <small class="text-muted"><b>x</b> is the position, <b>y</b> is useless for graphical purposes but the value is shown in the default tooltip.</small>
+                </div>
+              </div>
+              <div class="media mb-1">
+                <img class="mr-2" src="assets/feature_types/circle.png" style="width: 15%">
+                <div class="media-body">
+                  <h6 class="mt-1">Circles, <i>"circle"</i></h6>
+                  <small class="text-muted"><b>x</b> is the position, <b>y</b> is the circle width, in the range from 0 to 1.</small>
+                </div>
+              </div>
+              <div class="media mb-1">
+                <img class="mr-2" src="assets/feature_types/lollipop.png" style="width: 15%">
+                <div class="media-body">
+                  <h6 class="mt-1">Lollipops, <i>"lollipop"</i></h6>
+                  <small class="text-muted"><b>x</b> is the position, <b>y</b> is the lollipop width, in the range from 0 to 1.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </accordion-group>
+    <div class="card">
+      <div class="card-body">
+        <div id="fvDvAddfeatures"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <tabset>
+          <tab heading="feature-viewer-component.ts">
+          <pre class="prettyprint codeBox"><code class="language-java">
+  const addFeatures = {{this.FVaddFeatures.toString()}}
+  addFeatures("fvDivInit")
+          </code></pre>
+          </tab>
+          <tab heading="feature-viewer-component.html">
+            <pre class="prettyprint lang-html">
+
+  {{this.FVInitString}}
+            </pre>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+
+  <div class="well well-large mb-5">
+    <accordion-group [isOpen]="true" heading="Subfeatures">
+      <p>Add subfeatures through the <strong>subfeatures</strong> property. Subfeature objects have the same structure of feature objects.</p>
+      <p>Add buttons and other elements in the sidebar through the <strong>links</strong> property. </p>
+    </accordion-group>
+    <div class="card">
+      <div class="card-body">
+          <!-- Additional card to contain FV custom helper-->
+          <div class="card text-center">
+            <div class="card-header">
+              Alternative custom helper:
+              <div class="btn btn-primary mr-2" (click)="this.lastFV.showHelp()">Show help</div>
+              <div class="btn btn-primary mr-2" (click)="this.lastFV.downloadPNG()">Download PNG</div>
+              <div class="btn btn-primary mr-2" (click)="this.getPosition()">Get current position</div> <small class="mr-2">{{currentposition}}</small>
+              <div class="btn btn-primary mr-2" (click)="this.getZoom()">Get current zoom</div> <small>{{currentzoom}}</small>
+            </div>
+          </div>
+        <div id="fvDvAddSubfeatures"></div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" [disabled]="isEmpty" (click)="emptyme()">Empty</button>
+        <button class="btn btn-primary" [disabled]="!isEmpty" (click)="addme()">Add</button>
+        <button class="btn btn-primary" (click)="this.lastFV.downloadJpeg()">Download Img</button>
+        <button class="btn btn-primary" (click)="this.lastFV.resetAll()">Reset effects</button>
+        <button class="btn btn-primary" (click)="this.lastFV.resetZoom()">Reset zoom</button>
+        <button class="btn btn-primary" (click)="this.lastFV.resetHighlight()">Reset highlight</button>
+        <button class="btn btn-primary" (click)="highlightOne()">Highlight feature</button>
+        <button class="btn btn-primary" (click)="highlightPos()">Highlight region</button>
+        <button class="btn btn-primary" (click)="collapseExpand()">Collapse / Expand</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <tabset>
+          <tab heading="feature-viewer-component.ts">
+          <pre class="prettyprint codeBox"><code class="language-java">
+  const addFeaturesSubfeatures = {{this.FVaddSubfeatures.toString()
+            .replace("feature_viewer_typescript_lib__WEBPACK_IMPORTED_MODULE_2__[\"FeatureViewer\"]",
+            "FeatureViewer")}}
+  myFeatureViewer = addFeaturesSubfeatures("fvDivInit")
+          </code></pre>
+          </tab>
+          <tab heading="feature-viewer-component.html">
+            <pre class="prettyprint lang-html">
+
+  {{this.FVInitString}}
+            </pre>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+    <accordion-group [isOpen]="true" heading="Listeners">
+      <p>Feature viewer listeners can have several usages and are listed below</p>
+      <ul>
+        <li><strong>onButtonSelected</strong>: A function that is triggered when a button is selected.</li>
+        <li><strong>onClearSelection</strong>: Triggered when the viewer is zoomed out.</li>
+        <li><strong>onRegionSelected</strong>: Triggered when a feature (ex. rectangle) is selected.</li>
+        <li><strong>onFeatureSelected</strong>: Triggered to open subfeature details.</li>
+        <li><strong>onZoom</strong>: Triggered when viewer is zoomed.</li>
+      </ul>
+      <p>In addition, some FV functions are public in order to interact with buttons and functionalities of the web page</p>
+      <ul>
+        <li><strong>resetHighlight</strong>: Resets feature highlighting</li>
+        <li><strong>resetZoom</strong>: Resets zoom</li>
+        <li><strong>resetAll</strong>: Resets graphical elements such as feature highlighting, custom tooltips and zoom, plus subfeatures opening</li>
+        <li><strong>downloadJpeg</strong>: downloads Jpeg image of the viewer</li>
+        <li><strong>downloadPNG</strong>: downloads PNG image of the viewer</li>
+        <li><strong>clickFlag</strong>: simulates flag click, opening or closing the relative subfeatures; input is an object with flag x, y, id, label, flagLevel</li>
+        <li><strong>emptyFeatures</strong>: removes all features from the viewer</li>
+        <li><strong>highlightRegion</strong>: highlights a specific region of a feature, input is an object with region x and y and the feature id</li>
+        <li><strong>highlightPosition</strong>: highlights an area defined by the input object start and end</li>
+      </ul>
+      <p>You can replicate all the functionalities of the helper menu through the following functions</p>
+      <ul>
+        <li><strong>downloadJpeg</strong>: downloads Jpeg image of the viewer</li>
+        <li><strong>downloadPNG</strong>: downloads PNG image of the viewer</li>
+        <li><strong>getCurrentPosition</strong>: gets the current mouse position along the sequence, trigger at mouse move</li>
+        <li><strong>getCurrentZoom</strong>: gets the current zoom, trigger through the onZoom listener</li>
+        <li><strong>showHelp</strong>: shows the helper modal</li>
+      </ul>
+    </accordion-group>
+  </div>
+</accordion>
+
